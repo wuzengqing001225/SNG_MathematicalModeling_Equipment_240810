@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对战模拟器</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="container">
+        <!-- 左边：模拟对战部分 + 选择装备 -->
+        <div id="left-panel">
+            <h2>选择装备</h2>
+            <form id="weapon-selection">
+                <input type="radio" id="weapon-a" name="weapon" value="A" checked>
+                <label for="weapon-a">武器 A (+500 攻击力)</label><br>
+                <input type="radio" id="weapon-b" name="weapon" value="B">
+                <label for="weapon-b">武器 B (每次攻击随机+0-1000 攻击力)</label><br><br>
+                <button type="button" id="start-battle">开始战斗</button>
+            </form>
+
+            <div id="battlefield">
+                <div id="player-tank">
+                    <img src="{{ url_for('static', filename='images/tank1.png') }}" alt="玩家坦克">
+                </div>
+                <div id="npc-tank">
+                    <img src="{{ url_for('static', filename='images/tank2.png') }}" alt="NPC坦克">
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- 右上角：设置HP和基础攻击力 -->
+        <div id="right-top-panel">
+            <h2>设置参数</h2>
+            <label for="player-hp">玩家HP (最大10000):</label>
+            <input type="range" id="player-hp" name="player-hp" min="100" max="10000" value="{{ game_data['player_hp'] }}">
+            <input type="number" id="player-hp-text" value="{{ game_data['player_hp'] }}" max="5000"><br>
+        
+            <label for="player-attack">玩家基础攻击力 (最大500):</label>
+            <input type="range" id="player-attack" name="player-attack" min="10" max="500" value="{{ game_data['player_attack'] }}">
+            <input type="number" id="player-attack-text" value="{{ game_data['player_attack'] }}" max="500"><br>
+        
+            <label for="npc-hp">NPC HP (最大10000):</label>
+            <input type="range" id="npc-hp" name="npc-hp" min="100" max="10000" value="{{ game_data['npc_hp'] }}">
+            <input type="number" id="npc-hp-text" value="{{ game_data['npc_hp'] }}" max="5000"><br>
+        
+            <label for="npc-attack">NPC 基础攻击力 (最大1000):</label>
+            <input type="range" id="npc-attack" name="npc-attack" min="10" max="1000" value="{{ game_data['npc_attack'] }}">
+            <input type="number" id="npc-attack-text" value="{{ game_data['npc_attack'] }}" max="500"><br>
+        </div>
+
+        <!-- 右下角：显示回合伤害和剩余体力 -->
+        <div id="right-bottom-panel">
+            <h2>战斗结果</h2>
+            <div id="battle-log">
+                <!-- 战斗日志会显示在这里 -->
+            </div>
+            
+            <div id="health-chart-container">
+                <canvas id="health-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
