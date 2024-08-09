@@ -1,0 +1,2 @@
+# SNG_MathematicalModeling_Equipment_240810
+中福会少年宫2024暑期数学建模班 24/08/10课程
