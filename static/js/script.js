@@ -1,7 +1,7 @@
 function fireEffect(attackerId, power) {
     const attacker = document.getElementById(attackerId);
     const fire = document.createElement('div');
-    fire.className = 'fire-effect';
+    fire.className = attackerId === 'player-tank' ? 'fire-effect' : 'fire-effect-enemy';
     fire.style.width = fire.style.height = Math.max(power / 10, 10) + 'px';  // 调整火焰大小，最小为10px
     fire.style.left = attackerId === 'player-tank' ? '100px' : '500px'; // 子弹从坦克炮口出发
     fire.style.top = '200px'; // 调整火焰位置
@@ -57,6 +57,7 @@ document.getElementById('start-battle').addEventListener('click', function() {
     const playerHp = parseInt(document.getElementById('player-hp').value);
     const npcHp = parseInt(document.getElementById('npc-hp').value);
     initHealthChart(playerHp, npcHp);  // 重新初始化图表
+    updateHealthChart(playerHp, npcHp);
 
     const selectedWeapon = document.querySelector('input[name="weapon"]:checked').value;
     const playerAttack = parseInt(document.getElementById('player-attack').value);
@@ -109,18 +110,18 @@ function initHealthChart(playerInitialHp, npcInitialHp) {
     healthChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [],
+            labels: ['1'],  // 初始化时第一回合
             datasets: [
                 {
                     label: '玩家HP',
                     borderColor: 'rgb(75, 192, 192)',
-                    data: [playerInitialHp],
+                    data: [playerInitialHp],  // 玩家初始HP
                     fill: false
                 },
                 {
                     label: 'NPC HP',
                     borderColor: 'rgb(192, 75, 75)',
-                    data: [npcInitialHp],
+                    data: [npcInitialHp],  // NPC初始HP
                     fill: false
                 }
             ]
@@ -144,6 +145,9 @@ function initHealthChart(playerInitialHp, npcInitialHp) {
             }
         }
     });
+
+    // 立即更新图表以显示初始数据
+    healthChart.update();
 }
 
 syncInputs('player-hp', 'player-hp-text');
