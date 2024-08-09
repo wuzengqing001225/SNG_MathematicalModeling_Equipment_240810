@@ -37,6 +37,15 @@
     animation: fire-animation 0.5s ease-out;
 }
 
+.fire-effect-enemy {
+    position: absolute;
+    width: 20px;  /* 调整子弹大小 */
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    animation: fire-animation 0.5s ease-out;
+}
+
 @keyframes fire-animation {
     from {
         transform: translateX(0);
